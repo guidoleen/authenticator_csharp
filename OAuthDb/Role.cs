@@ -57,5 +57,10 @@ namespace OAuthDb
         {
             return this.role;
         }
+
+        public string GetObjectIdName()
+        {
+            return "rle_role";
+        }
     }
 }

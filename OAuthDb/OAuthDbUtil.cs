@@ -4,8 +4,8 @@ namespace OAuthDb
 {
     public class OAuthDbUtil
     {
-        // Token creation
-        public String CreateTokenOnTimeStamp()
+        // Token credential creation
+        public String CreateTokenCredentialOnTimeStamp()
         {
             byte[] time = BitConverter.GetBytes(this.CreateDateTimeNow().ToBinary());
             byte[] key = Guid.NewGuid().ToByteArray(); // Unique key
@@ -24,18 +24,28 @@ namespace OAuthDb
             return Convert.ToBase64String(concat);
         }
 
-        public DateTime EncodeTokenOnTimeStamp(String token)
+        public DateTime EncodeTokenCredentialOnTimeStamp(String token)
         {
             byte[] data = Convert.FromBase64String(token);
             DateTime when = DateTime.FromBinary(BitConverter.ToInt64(data, 0));
           
             return when;
         }
+        // End token creation
 
         public DateTime CreateDateTimeNow()
         {
             return DateTime.Now;
         }
-        // End token creation
+
+        // Create datetime object from 1970 jan 01
+        private static double GetTimeFromJan1970()
+        {
+            var timeFromJan1970 =
+                new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc) -
+                new DateTime().ToUniversalTime();
+
+            return timeFromJan1970.TotalSeconds;
+        }
     }
 }

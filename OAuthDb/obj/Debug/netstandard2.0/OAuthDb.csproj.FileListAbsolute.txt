@@ -1,0 +1,9 @@
+C:\Users\Guido Leen\source\repos\Authenticator\OAuthDb\bin\Debug\netstandard2.0\OAuthDb.deps.json
+C:\Users\Guido Leen\source\repos\Authenticator\OAuthDb\bin\Debug\netstandard2.0\OAuthDb.dll
+C:\Users\Guido Leen\source\repos\Authenticator\OAuthDb\bin\Debug\netstandard2.0\OAuthDb.pdb
+C:\Users\Guido Leen\source\repos\Authenticator\OAuthDb\obj\Debug\netstandard2.0\OAuthDb.csprojAssemblyReference.cache
+C:\Users\Guido Leen\source\repos\Authenticator\OAuthDb\obj\Debug\netstandard2.0\OAuthDb.csproj.CoreCompileInputs.cache
+C:\Users\Guido Leen\source\repos\Authenticator\OAuthDb\obj\Debug\netstandard2.0\OAuthDb.AssemblyInfoInputs.cache
+C:\Users\Guido Leen\source\repos\Authenticator\OAuthDb\obj\Debug\netstandard2.0\OAuthDb.AssemblyInfo.cs
+C:\Users\Guido Leen\source\repos\Authenticator\OAuthDb\obj\Debug\netstandard2.0\OAuthDb.dll
+C:\Users\Guido Leen\source\repos\Authenticator\OAuthDb\obj\Debug\netstandard2.0\OAuthDb.pdb

@@ -32,6 +32,16 @@ namespace OAuthDb
             return this;
         }
 
+        public String GetPwd()
+        {
+            return this.pwd;
+        }
+
+        public String GetEmail()
+        {
+            return this.email;
+        }
+
         override
         public String ToString()
         {
@@ -56,6 +66,11 @@ namespace OAuthDb
         public string GetObjectId()
         {
             return this.userid.ToString();
+        }
+
+        public string GetObjectIdName()
+        {
+            return "id";
         }
     }
 }

@@ -13,7 +13,7 @@ namespace OAuthDb
 
         public Token SetToken()
         {
-            this.token = new OAuthDbUtil().CreateTokenOnTimeStamp();
+            this.token = new OAuthDbUtil().CreateTokenCredentialOnTimeStamp();
             return this;
         }
         public Token SetUserId(int id)
@@ -57,6 +57,11 @@ namespace OAuthDb
         public string GetObjectId()
         {
             return this.userid.ToString();
+        }
+
+        public string GetObjectIdName()
+        {
+            return "tkn_token";
         }
     }
 }

@@ -6,7 +6,7 @@ namespace OAuthDb
     {
         String delete(String id, String keyId);
 
-        String display(int id);
+        String display();
 
         String save(String keyId);
     }

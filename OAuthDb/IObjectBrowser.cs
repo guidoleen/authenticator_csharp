@@ -5,4 +5,5 @@ public interface IObjectBrowser
 {
     Dictionary<String, Object> GetObjectList();
     String GetObjectId();
+    String GetObjectIdName();
 }

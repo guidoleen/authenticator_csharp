@@ -12,13 +12,25 @@ namespace OAuthDb
         private IObjectBrowser obj;
         Dictionary<String, Object> objList;
 
+        // Get Conn
+        public MySqlConnection GetConn()
+        {
+            return this.conn;
+        }
+        // Get Comm
+        public MySqlCommand GetComm()
+        {
+            return this.comm;
+        }
+
+        // Constructor
         public MySqlDbManager(IObjectBrowser obj)
         {
             this.obj = obj;
             this.objList = this.obj.GetObjectList();
         }
 
-        private void createConnComm()
+        public void createConnComm()
         {
             this.conn.Open();
             this.comm = this.conn.CreateCommand();
@@ -38,14 +50,38 @@ namespace OAuthDb
             return String.Format("Done delete {0}", id);
         }
 
-        public string display(int id)
+        public string display()
         {
-            throw new NotImplementedException();
+            String strDisplay = "";
+            this.createConnComm();
+
+            this.comm.CommandText = this.createSelectString();
+
+            try
+            {
+                MySqlDataReader rdr = this.comm.ExecuteReader();
+
+                while(rdr.Read())
+                {
+                    strDisplay += rdr.GetValue(1);
+                }
+            }
+            catch (MySql.Data.MySqlClient.MySqlException ee)
+            {
+                return ee.ToString();
+            }
+            finally
+            {
+                this.conn.Close();
+            }
+
+            return strDisplay;
         }
 
         public string save(String keyId)
         {
             this.createConnComm();
+            
             if (keyId == "")
                 this.comm.CommandText = createInsertString();
             else
@@ -68,7 +104,7 @@ namespace OAuthDb
         }
 
         // Insert into
-        public String createInsertString()
+        private String createInsertString()
         {
             int iCount = 0;
             String strParam = "";
@@ -99,7 +135,7 @@ namespace OAuthDb
         }
 
         // Update set
-        public String createUpdateString(String KeyId)
+        private String createUpdateString(String KeyId)
         {
             int iCount = 0;
             String strParamFlag = "";
@@ -119,12 +155,33 @@ namespace OAuthDb
                 }
             }
             strInsert += " WHERE ";
-            strInsert += KeyId;
-            strInsert += "=" + this.obj.GetObjectId();
+            strInsert += this.obj.GetObjectIdName();
+            strInsert += "=" + KeyId;
 
             this.comm.Parameters.Add(new MySqlParameter("@param"+(iCount+1), this.obj.GetObjectId()));
-
             return strInsert;
+        }
+
+        private String createSelectString()
+        {
+            int iCount = 0;
+            String strParamFlag = "";
+
+            String strSelect = "SELECT * FROM ";
+            strSelect += createGetTypeFromObjString();
+
+            if(this.obj.GetObjectId() != "" )
+            {
+                iCount++;
+                strParamFlag = "@param" + iCount;
+                this.comm.Parameters.Add(new MySqlParameter(strParamFlag, this.obj.GetObjectId()));
+
+                strSelect += " WHERE ";
+                strSelect += this.obj.GetObjectIdName();
+                strSelect += " = ";
+                strSelect += strParamFlag;
+            }
+            return strSelect;
         }
         
         private String createGetTypeFromObjString()

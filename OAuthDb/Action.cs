@@ -57,5 +57,10 @@ namespace OAuthDb
         {
             return this.action;
         }
+
+        public string GetObjectIdName()
+        {
+            return "atn_action";
+        }
     }
 }
