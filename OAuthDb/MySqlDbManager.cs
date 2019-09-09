@@ -23,7 +23,19 @@ namespace OAuthDb
             return this.comm;
         }
 
-        // Constructor
+        // Set Object when empty constructor
+        public void SetObject(IObjectBrowser _obj)
+        {
+            this.obj = _obj;
+            this.objList = this.obj.GetObjectList();
+        }
+
+        // Constructor Plain
+        public MySqlDbManager()
+        {
+        }
+
+        // constructor with param Objeect
         public MySqlDbManager(IObjectBrowser obj)
         {
             this.obj = obj;
@@ -83,7 +95,7 @@ namespace OAuthDb
             this.createConnComm();
             
             if (keyId == "")
-                this.comm.CommandText = createInsertString();
+                this.comm.CommandText = createInsertString(null);
             else
                 this.comm.CommandText = createUpdateString(keyId);
 
@@ -104,22 +116,27 @@ namespace OAuthDb
         }
 
         // Insert into
-        private String createInsertString()
+        private int iCount = 0;
+        public String createInsertString(MySqlCommand commObj)
         {
-            int iCount = 0;
+            int iCountFlag = 0;
             String strParam = "";
             String strParamFlag = "";
             String strInsert = "INSERT INTO " + this.createGetTypeFromObjString() + "(";
             foreach (KeyValuePair<String, object> keyval in this.objList)
             {
                 iCount++;
+                iCountFlag++;
                 strInsert += keyval.Key;
                 strParamFlag = "@param" + iCount;
                 strParam += strParamFlag;
 
-                this.comm.Parameters.Add(new MySqlParameter(strParamFlag, keyval.Value));
+                if(this.comm == null)
+                    commObj.Parameters.Add(new MySqlParameter(strParamFlag, keyval.Value));
+                else
+                    this.comm.Parameters.Add(new MySqlParameter(strParamFlag, keyval.Value));
 
-                if (iCount < this.objList.Count)
+                if (iCountFlag < this.objList.Count)
                 {
                     strInsert += ", ";
                     strParam += ", ";

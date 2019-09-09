@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace OAuthDb
 {
-    public class Action : IObjectBrowser
+    public class ActionDb : IObjectBrowser
     {
         private String action { get; set; }
         private int id { get; set; }
@@ -11,22 +11,22 @@ namespace OAuthDb
         private String actionDescription { get; set; }
         private Dictionary<String, Object> ActionList = new Dictionary<String, Object>();
 
-        public Action SetAction(String action)
+        public ActionDb SetAction(String action)
         {
             this.action = action;
             return this;
         }
-        public Action SetActionId(int id)
+        public ActionDb SetActionId(int id)
         {
             this.id = id;
             return this;
         }
-        public Action SetActionName(String actionName)
+        public ActionDb SetActionName(String actionName)
         {
             this.actionName = actionName;
             return this;
         }
-        public Action SetActionDescription(String actionDescription)
+        public ActionDb SetActionDescription(String actionDescription)
         {
             this.actionDescription = actionDescription;
             return this;

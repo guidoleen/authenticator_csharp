@@ -2,7 +2,7 @@ DROP SCHEMA `oathdb`;
 CREATE SCHEMA IF NOT EXISTS `oathdb` DEFAULT CHARACTER SET utf8 ;
 USE `oathdb`;
 
-CREATE TABLE IF NOT EXISTS `oathdb`.`action` (
+CREATE TABLE IF NOT EXISTS `oathdb`.`actiondb` (
   `atn_action` VARCHAR(1) NOT NULL,
   `atn_name` VARCHAR(45) NULL,
   `atn_descr` VARCHAR(128) NULL,
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `oathdb`.`roleaction` (
   INDEX `fk_ran_rle_idx` (`fkrle_role` ASC),
   CONSTRAINT `fk_ran_atn`
     FOREIGN KEY (`fkatn_action`)
-    REFERENCES `oathdb`.`action` (`atn_action`)
+    REFERENCES `oathdb`.`actiondb` (`atn_action`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
   CONSTRAINT `fk_ran_rle`

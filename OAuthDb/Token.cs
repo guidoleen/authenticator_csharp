@@ -11,9 +11,9 @@ namespace OAuthDb
         private DateTime datetoken { get; set; }
         private Dictionary<String, Object> TokenList = new Dictionary<String, Object>();
 
-        public Token SetToken()
+        public Token SetToken(String token)
         {
-            this.token = new OAuthDbUtil().CreateTokenCredentialOnTimeStamp();
+            this.token = token; // new OAuthDbUtil().CreateTokenCredentialOnTimeStamp();
             return this;
         }
         public Token SetUserId(int id)

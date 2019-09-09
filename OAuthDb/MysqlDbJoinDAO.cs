@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Data;
+using MySql.Data.MySqlClient;
 
 namespace OAuthDb
 {
@@ -7,47 +9,47 @@ namespace OAuthDb
     /// </summary>
     public class MysqlDbJoinDAO
     {
-        public String SaveRoleAction(IObjectBrowser mnrg1, IObjectBrowser mngr2)
+        // Only for inserting to the database
+        public String SaveInObjects(IObjectBrowser[] mnrgObj)
         {
+            if (mnrgObj.Length == null) return "Create objects...";
 
-            MySqlDbManager mngrRole = new MySqlDbManager(mnrg1);
-            MySqlDbManager mngrAction = new MySqlDbManager(mngr2);
+            // Connection Obj
+            MySqlDbManager mngrSave = new MySqlDbManager();
+            mngrSave.GetConn().Open();
 
+            MySqlCommand comm = mngrSave.GetConn().CreateCommand();
 
-            return String.Format("Done saved");
+            // Transaction Obj from connection
+            MySql.Data.MySqlClient.MySqlTransaction tr =
+            mngrSave.GetConn().BeginTransaction();
+
+            // Pass the tr to the Command
+            comm.Transaction = tr;
+
+            try
+            {
+                for (int i = 0; i < mnrgObj.Length; i++)
+                {
+                    comm.CommandType = CommandType.Text;
+                    mngrSave.SetObject(mnrgObj[i]);
+                    comm.CommandText = mngrSave.createInsertString(comm);
+
+                    comm.ExecuteNonQuery();
+                }
+                tr.Commit();
+            }
+            catch (MySql.Data.MySqlClient.MySqlException ee)
+            {
+                tr.Rollback();
+                return ee.ToString();
+            }
+            finally
+            {
+                mngrSave.GetConn().Close();
+            }
+
+            return "Done join connection";
         }
     }
 }
-
-// Insert into Transaction
-//public String InsertDbTransaction(String[] strSqlQuery, Object[] paramValues)
-//{
-//    String strMessage = "";
-//    MySql.Data.MySqlClient.MySqlTransaction tr = this.conn.BeginTransaction();
-//    this.comm.Transaction = tr;
-
-//    try
-//    {
-//        for (int i = 0; i < strSqlQuery.Length; i++)
-//        {
-//            this.comm.CommandType = CommandType.Text;
-//            this.comm.CommandText = strSqlQuery[i];
-
-//            for (int j = 0; j < paramValues.Length; j++)
-//                // this.comm.Parameters.Add(new MySql.Data.MySqlClient.MySqlParameter(paramValues));
-//                this.comm.ExecuteNonQuery();
-//        }
-//        tr.Commit();
-//    }
-//    catch (MySql.Data.MySqlClient.MySqlException ee)
-//    {
-//        tr.Rollback();
-//        strMessage = ee.ToString();
-//    }
-//    finally
-//    {
-//        this.conn.Close();
-//    }
-
-//    return strMessage;
-//}

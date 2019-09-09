@@ -14,5 +14,21 @@ namespace OAuthDb
         public static String JWT_AUD = "localhost";
         public static int JWT_XTRA_DAY = 2;
         public static int JWT_XTRA_MINUTE = 30;
+
+        // DB INIT
+        public static String[] DB_ROLES =
+        {
+            "ADM", "Admin", "Admin role",
+            "USR", "User Plain", "User Plain role",
+            "PRO", "Project Manager", "Project Manager role"
+        };
+
+        public static String[] DB_ACTIONS =
+        {
+            "C", "Create", "Create action",
+            "R", "Read", "Read action",
+            "U", "Update", "Update action",
+            "D", "Delete", "Delete action"
+        };
     }
 }

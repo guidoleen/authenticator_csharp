@@ -51,7 +51,8 @@ namespace OAuthDb
             Claim[] claim =
             {
                 new Claim("isAdmin", this.IsAdmin.ToString()),
-                new Claim("userId", this.UserId)
+                new Claim("userId", this.UserId),
+                new Claim( JwtRegisteredClaimNames.Iat, this.GetTimeForJwtTokenFromJan1970().ToString(), ClaimValueTypes.Integer32 )
             };
             return claim;
         }
@@ -59,9 +60,15 @@ namespace OAuthDb
         private DateTime GetTimeForJwtToken(int xtraDay, int xtraMin)
         {
             DateTime dtt = DateTime.Now.AddDays(xtraDay);
-            dtt.AddMinutes(xtraMin);
+            dtt = dtt.AddMinutes(xtraMin);
 
             return dtt; //  Convert.ToInt32(dtt.ToString("yyyyMMdd"));
+        }
+
+        private int GetTimeForJwtTokenFromJan1970()
+        {
+            TimeSpan span = (new OAuthDbUtil().CreateDateTimeNow() - new DateTime(1970, 1, 1, 0, 0, 0, 0));
+            return Convert.ToInt32(Math.Round(span.TotalSeconds));
         }
 
         // Create Symmetric Security key
