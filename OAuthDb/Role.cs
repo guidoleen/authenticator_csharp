@@ -11,6 +11,18 @@ namespace OAuthDb
         private String roleDescription { get; set; }
         private Dictionary<String, Object> RoleList = new Dictionary<String, Object>();
 
+        // Constructor
+        public Role()
+        {
+        }
+
+        public Role(String role, String roleName, String roleDescription)
+        {
+            this.role = role;
+            this.roleName = roleName;
+            this.roleDescription = roleDescription;
+        }
+
         public Role SetRole(String role)
         {
             this.role = role;

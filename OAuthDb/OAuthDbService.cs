@@ -8,7 +8,12 @@ namespace OAuthDb
         // Initialize the application based on different roles and actions
         public String InitApp()
         {
-            return createActionsInDB(3)[0].GetObjectId() + " - " + createActionsInDB(3)[0].GetObjectIdName(); ;
+            String strInit = "";
+            // Put the different roles and actions in db
+            strInit += this.SetActionRoleInDBOnInit();
+            strInit += this.SaveAdminRoles();
+
+            return strInit;
         }
 
         // Client login process
@@ -43,27 +48,85 @@ namespace OAuthDb
             return strJwtToken;
         }
 
+        // INIT Process 
+        // for inserting roles and actions
         // Create the Objects for Action And Role
-        private ActionDb[] createActionsInDB(int initStringLength)
+        private IObjectBrowser[] createIBrowserArrInDB(int initStringLength, String[] strConst, IObjectBrowser objB)
         {
-            int iActionStringLen = OAuthDbCONST.DB_ACTIONS.Length;
-            int iActionLen = OAuthDbCONST.DB_ACTIONS.Length/initStringLength;
-            int iActionTelr = 0;
+            IObjectBrowser[] objBr = null;
 
-            ActionDb[] actions = new ActionDb[iActionLen];
-            
-            for(int i = 0; i < iActionStringLen; i++)
+            this.SetObjectBrowserOnType(initStringLength, out objBr, strConst, objB);
+
+            return objBr;
+        }
+
+        // General function for creating object array > for storing in DB
+        private void SetObjectBrowserOnType(int initStringLength, out IObjectBrowser[] objBr, String[] strConst, IObjectBrowser objB)
+        {
+            int iStringLen = strConst.Length;
+            int iLen = strConst.Length / initStringLength;
+            int iTelr = 0;
+            objBr = new IObjectBrowser[iLen];
+            String strObjType = objB.GetType().ToString().Split('.')[1];
+
+            for (int i = 0; i < iStringLen; i++)
             {
-                if((i % iActionLen) == 0)
+                if ((i % initStringLength) == 0)
                 {
-                    actions[iActionTelr] = new ActionDb()
-                    .SetAction(OAuthDbCONST.DB_ACTIONS[i])
-                    .SetActionName(OAuthDbCONST.DB_ACTIONS[i + 1])
-                    .SetActionDescription(OAuthDbCONST.DB_ACTIONS[i + 2]);
+                    if (strObjType.Equals("ActionDb"))
+                        objBr[iTelr] = new ActionDb(
+                                   strConst[i],
+                                   strConst[i + 1],
+                                   strConst[i + 2]
+                               );
+                        
+                    if (strObjType.Equals("Role"))
+                        objBr[iTelr] = new Role(
+                                strConst[i],
+                                strConst[i + 1],
+                                strConst[i + 2]
+                            );
+
+                    iTelr++;
                 }
             }
-
-            return actions;
         }
+
+        // 
+        private String SetActionRoleInDBOnInit()
+        {
+            String strInit = "";
+            // Create Actions from Constant vars
+            strInit = new MysqlDbJoinDAO().SaveInObjects(
+                                        createIBrowserArrInDB(
+                                            3,
+                                            OAuthDbCONST.DB_ACTIONS,
+                                            new ActionDb()
+                                            )
+                                        );
+
+            // Create Roles from Constant vars
+            strInit += new MysqlDbJoinDAO().SaveInObjects(
+                                        createIBrowserArrInDB(
+                                            3,
+                                            OAuthDbCONST.DB_ROLES,
+                                            new Role()
+                                            )
+                                        );
+
+            return strInit;
+        }
+
+        // TODO
+        // Set admin actions in db > roleaction db
+        // This is an admin setting for all the actions an admin should have
+        private String SaveAdminRoles()
+        {
+            IDbDao<RoleAction> roleActionDAO = (RoleActionDAO)new RoleActionDAO()
+            .SetActionsForRole(OAuthDbCONST.DB_ROLEACTIONS_ADMIN);
+
+            return roleActionDAO.save(OAuthDbCONST.DB_ROLES[0]);
+        }
+
     }
 }

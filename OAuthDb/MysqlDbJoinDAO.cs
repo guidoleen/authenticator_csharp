@@ -12,7 +12,7 @@ namespace OAuthDb
         // Only for inserting to the database
         public String SaveInObjects(IObjectBrowser[] mnrgObj)
         {
-            if (mnrgObj.Length == null) return "Create objects...";
+            if (mnrgObj.Length == 0) return "Create objects...";
 
             // Connection Obj
             MySqlDbManager mngrSave = new MySqlDbManager();
@@ -32,7 +32,7 @@ namespace OAuthDb
                 for (int i = 0; i < mnrgObj.Length; i++)
                 {
                     comm.CommandType = CommandType.Text;
-                    mngrSave.SetObject(mnrgObj[i]);
+                        mngrSave.SetObject(mnrgObj[i]);
                     comm.CommandText = mngrSave.createInsertString(comm);
 
                     comm.ExecuteNonQuery();
@@ -49,7 +49,7 @@ namespace OAuthDb
                 mngrSave.GetConn().Close();
             }
 
-            return "Done join connection";
+            return "Done join connection \n";
         }
     }
 }

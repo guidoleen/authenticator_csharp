@@ -11,6 +11,18 @@ namespace OAuthDb
         private String actionDescription { get; set; }
         private Dictionary<String, Object> ActionList = new Dictionary<String, Object>();
 
+        // Constructor
+        public ActionDb()
+        {
+        }
+
+        public ActionDb(String action, String actionName, String actionDescription)
+        {
+            this.action = action;
+            this.actionName = actionName;
+            this.actionDescription = actionDescription;
+        }
+
         public ActionDb SetAction(String action)
         {
             this.action = action;
