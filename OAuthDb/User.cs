@@ -56,9 +56,9 @@ namespace OAuthDb
 
         public Dictionary<String, Object> GetObjectList()
         {
-            UserList.Add("usr_name", this.username);
-            UserList.Add("usr_pwd", this.pwd);
-            UserList.Add("usr_email", this.email);
+            UserList.Add(OAuthDbCONST.DBCOLUMN_USR_USERNAME, this.username);
+            UserList.Add(OAuthDbCONST.DBCOLUMN_USR_PWD, this.pwd);
+            UserList.Add(OAuthDbCONST.DBCOLUMN_USR_EMAIL, this.email);
             // UserList.Add("@id", this.userid);
             return this.UserList;
         }
@@ -70,7 +70,7 @@ namespace OAuthDb
 
         public string GetObjectIdName()
         {
-            return "id";
+            return OAuthDbCONST.DBCOLUMN_USR_ID;
         }
     }
 }

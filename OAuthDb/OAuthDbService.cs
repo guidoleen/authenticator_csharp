@@ -39,8 +39,9 @@ namespace OAuthDb
                     Console.Write(tokenDAO); // Console write > Is not nescessary
 
                 // Create Jwt Token for usage
-                TokenJWT tokenJwt = new TokenJWT(true, 
-                                    new EncryptionDecryption(strUniqueKey).Encrypt(UserId) 
+                TokenJWT tokenJwt = new TokenJWT(
+                                        UserId,
+                                        strUniqueKey
                                     );
 
                 strJwtToken = tokenJwt.CreateTokenJWT(strUniqueKey);

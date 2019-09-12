@@ -10,6 +10,7 @@ namespace OAuthDb
         private MySqlConnection conn = new MySqlConnector().GetMySqlConnector();
         private MySqlCommand comm;
         private IObjectBrowser obj;
+        private String strSelectQuery = "*";
         Dictionary<String, Object> objList;
 
         // Get Conn
@@ -66,6 +67,7 @@ namespace OAuthDb
         {
             String strDisplay = "";
             this.createConnComm();
+            int index = 0;
 
             this.comm.CommandText = this.createSelectString();
 
@@ -75,7 +77,8 @@ namespace OAuthDb
 
                 while(rdr.Read())
                 {
-                    strDisplay += rdr.GetValue(1);
+                    strDisplay += rdr.GetValue(0);
+                    index++;
                 }
             }
             catch (MySql.Data.MySqlClient.MySqlException ee)
@@ -184,7 +187,7 @@ namespace OAuthDb
             int iCount = 0;
             String strParamFlag = "";
 
-            String strSelect = "SELECT * FROM ";
+            String strSelect = "SELECT " + this.strSelectQuery + " FROM ";
             strSelect += createGetTypeFromObjString();
 
             if(this.obj.GetObjectId() != "" )
@@ -199,6 +202,12 @@ namespace OAuthDb
                 strSelect += strParamFlag;
             }
             return strSelect;
+        }
+
+        // Set select query with the unique column name
+        public void SetSelectQueryString(String strKeyName)
+        {
+            this.strSelectQuery = strKeyName;
         }
         
         private String createGetTypeFromObjString()

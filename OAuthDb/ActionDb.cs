@@ -58,9 +58,9 @@ namespace OAuthDb
 
         public Dictionary<String, Object> GetObjectList()
         {
-            ActionList.Add("atn_name", this.actionName);
-            ActionList.Add("atn_descr", this.actionDescription);
-            ActionList.Add("atn_action", this.action);
+            ActionList.Add(OAuthDbCONST.DBCOLUMN_ATN_ACTIONNAME, this.actionName);
+            ActionList.Add(OAuthDbCONST.DBCOLUMN_ATN_ACTIONDESCR, this.actionDescription);
+            ActionList.Add(OAuthDbCONST.DBCOLUMN_ATN_ACTION, this.action);
             // ActionList.Add("id", this.id);
             return this.ActionList;
         }
@@ -72,7 +72,7 @@ namespace OAuthDb
 
         public string GetObjectIdName()
         {
-            return "atn_action";
+            return OAuthDbCONST.DBCOLUMN_ATN_ACTION;
         }
     }
 }

@@ -58,9 +58,9 @@ namespace OAuthDb
 
         public Dictionary<String, Object> GetObjectList()
         {
-            RoleList.Add("rle_name", this.roleName);
-            RoleList.Add("rle_descr", this.roleDescription);
-            RoleList.Add("rle_role", this.role);
+            RoleList.Add(OAuthDbCONST.DBCOLUMN_RLE_ROLENAME, this.roleName);
+            RoleList.Add(OAuthDbCONST.DBCOLUMN_RLE_ROLEDESCR, this.roleDescription);
+            RoleList.Add(OAuthDbCONST.DBCOLUMN_RLE_ROLE, this.role);
             // RoleList.Add("id", this.id);
             return this.RoleList;
         }
@@ -72,7 +72,7 @@ namespace OAuthDb
 
         public string GetObjectIdName()
         {
-            return "rle_role";
+            return OAuthDbCONST.DBCOLUMN_RLE_ROLE";
         }
     }
 }

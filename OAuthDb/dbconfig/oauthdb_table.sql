@@ -30,6 +30,7 @@ CREATE TABLE IF NOT EXISTS `oathdb`.`roleaction` (
   `fkrle_role` VARCHAR(3) NOT NULL,
   INDEX `fk_ran_atn_idx` (`fkatn_action` ASC),
   INDEX `fk_ran_rle_idx` (`fkrle_role` ASC),
+  PRIMARY KEY (fkatn_action, fkrle_role),
   CONSTRAINT `fk_ran_atn`
     FOREIGN KEY (`fkatn_action`)
     REFERENCES `oathdb`.`actiondb` (`atn_action`)
@@ -40,6 +41,7 @@ CREATE TABLE IF NOT EXISTS `oathdb`.`roleaction` (
     REFERENCES `oathdb`.`role` (`rle_role`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
+    
 ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `oathdb`.`userrole` (
@@ -47,6 +49,7 @@ CREATE TABLE IF NOT EXISTS `oathdb`.`userrole` (
   `fkrle_role` VARCHAR(3) NOT NULL,
   INDEX `fk_userrole_user_idx` (`fkusr_id` ASC),
   INDEX `fk_userrole_role1_idx` (`fkrle_role` ASC),
+  PRIMARY KEY (fkusr_id, fkrle_role),
   CONSTRAINT `fk_userrole_user`
     FOREIGN KEY (`fkusr_id`)
     REFERENCES `oathdb`.`user` (`id`)
@@ -74,7 +77,7 @@ CREATE TABLE IF NOT EXISTS `oathdb`.`token` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-SET SQL_MODE=@OLD_SQL_MODE;
+-- SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 

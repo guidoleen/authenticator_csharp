@@ -4,3 +4,12 @@ TokenJWT > int GetTimeForJwtTokenFromJan1970() > Hours is plus 2!!
 Init App > Roleactions in Db
 
 RoleAction > display function > select from where
+
+UserRoleDAO > in Service bouwen
+
+All Column names in Constant list
+
+
+/////
+
+rdr.GetValue(0); // More in detail when everything is ready....

@@ -46,10 +46,10 @@ namespace OAuthDb
 
         public Dictionary<String, Object> GetObjectList()
         {
-            TokenList.Add("tkn_token", this.token);
-            TokenList.Add("usr_id", this.userid);
-            TokenList.Add("tkn_revoked", this.revoked);
-            TokenList.Add("tkn_date", this.datetoken);
+            TokenList.Add(OAuthDbCONST.DBCOLUMN_TKN_TOKEN, this.token);
+            TokenList.Add(OAuthDbCONST.DBCOLUMN_TKN_USRID, this.userid);
+            TokenList.Add(OAuthDbCONST.DBCOLUMN_TKN_REVOKED, this.revoked);
+            TokenList.Add(OAuthDbCONST.DBCOLUMN_TKN_DATE, this.datetoken);
             // ActionList.Add("id", this.id);
             return this.TokenList;
         }
@@ -61,7 +61,7 @@ namespace OAuthDb
 
         public string GetObjectIdName()
         {
-            return "tkn_token";
+            return OAuthDbCONST.DBCOLUMN_TKN_TOKEN;
         }
     }
 }

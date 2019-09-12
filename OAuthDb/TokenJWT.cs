@@ -10,14 +10,14 @@ namespace OAuthDb
     public class TokenJWT
     {
         private JwtSecurityTokenHandler tokenHandler;
-        private bool IsAdmin = false;
         private String UserId = "";
+        private String UniqueKey = "";
 
-        public TokenJWT(bool IsAdmin, String UserId)
+        public TokenJWT(String UserId, String UniqueKey)
         {
             this.tokenHandler = new JwtSecurityTokenHandler();
-            this.IsAdmin = IsAdmin;
             this.UserId = UserId;
+            this.UniqueKey = UniqueKey;
         }
 
         public String CreateTokenJWT(String SecretKey)
@@ -48,10 +48,13 @@ namespace OAuthDb
         // Create claims for token
         private Claim[] createClaims()
         {
+            String hasRoles = new RoleDAO().displayActionsOrRole(Convert.ToInt32(this.UserId));
+            String userIdEncryp = new EncryptionDecryption(this.UniqueKey).Encrypt(this.UserId);
+
             Claim[] claim =
             {
-                new Claim("isAdmin", this.IsAdmin.ToString()),
-                new Claim("userId", this.UserId),
+                new Claim("hasRoles", hasRoles),
+                new Claim("userId", userIdEncryp),
                 new Claim( JwtRegisteredClaimNames.Iat, this.GetTimeForJwtTokenFromJan1970().ToString(), ClaimValueTypes.Integer32 )
             };
             return claim;

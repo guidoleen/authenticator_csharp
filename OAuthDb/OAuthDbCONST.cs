@@ -21,6 +21,7 @@ namespace OAuthDb
         public static String JWT_AUD = "localhost";
         public static int JWT_XTRA_DAY = 2;
         public static int JWT_XTRA_MINUTE = 30;
+        public static bool JWT_SHOWROLES = false;
 
         // DB INIT
         public static String[] DB_ROLES =
@@ -38,12 +39,50 @@ namespace OAuthDb
             "D", "Delete", "Delete action"
         };
 
-        public static String[] DB_ROLEACTIONS_ADMIN =
+        public static String[] DB_ROLEACTIONS_ADMIN = GetCodesFromArray(3, DB_ACTIONS);
+
+        // DB COLUMNNAMES >> Mapping to DB
+        public static string DBCOLUMN_RAN_ACTION = "fkatn_action";
+        public static string DBCOLUMN_RAN_ROLE = "fkrle_role";
+
+        public static string DBCOLUMN_USRROLE_USRID = "fkusr_id";
+        public static string DBCOLUMN_USRROLE_ROLEID = "fkrle_role";
+
+        public static string DBCOLUMN_TKN_TOKEN = "tkn_token";
+        public static string DBCOLUMN_TKN_USRID = "usr_id";
+        public static string DBCOLUMN_TKN_REVOKED = "tkn_revoked";
+        public static string DBCOLUMN_TKN_DATE = "tkn_date";
+
+        public static string DBCOLUMN_RLE_ROLENAME = "rle_name";
+        public static string DBCOLUMN_RLE_ROLEDESCR = "rle_descr";
+        public static string DBCOLUMN_RLE_ROLE = "rle_role";
+
+        public static string DBCOLUMN_ATN_ACTIONNAME = "atn_name";
+        public static string DBCOLUMN_ATN_ACTIONDESCR = "atn_descr";
+        public static string DBCOLUMN_ATN_ACTION = "atn_action";
+
+        public static string DBCOLUMN_USR_USERNAME = "usr_name";
+        public static string DBCOLUMN_USR_PWD = "usr_pwd";
+        public static string DBCOLUMN_USR_EMAIL = "usr_email";
+        public static string DBCOLUMN_USR_ID = "id";
+
+        // Xtra functions for Constants
+        private static String[] GetCodesFromArray(int iTelColumn, String[] strArr)
         {
-                "C",
-                "R",
-                "U",
-                "D"
-        };
+            int index = 0;
+            int iLen = strArr.Length;
+            String[] strResult = new String[(int)iLen/iTelColumn];
+
+            for (int i = 0; i <iLen; i++)
+            {
+                if((i % iTelColumn) == 0)
+                {
+                    strResult[index] = strArr[i];
+                    index++;
+                }
+            }
+
+            return strResult;
+        }
     }
 }
