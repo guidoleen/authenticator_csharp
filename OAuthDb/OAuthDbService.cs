@@ -49,6 +49,36 @@ namespace OAuthDb
             return strJwtToken;
         }
 
+        // INSERT or UPDATE User
+        // If no id is given the insert query will work, otherwise the 
+        // Update query works.
+        public String CreateOrUpdateUser(User usr)
+        {
+            MySqlDbManager msmmngr = new MySqlDbManager(usr);
+            return msmmngr.save(usr.GetObjectId(), false);
+        }
+
+        // DELETE User
+        public String DeleteUser(User usr)
+        {
+            MySqlDbManager msmmngr = new MySqlDbManager(usr);
+            return msmmngr.delete(usr.GetObjectId());
+        }
+
+        // INSERT or UPDATE UserRole >> Force update is for updating existing user with new role
+        public string CreateOrUpdateUserRole(UserRole usrRole, Boolean forceUpdate)
+        {
+            MySqlDbManager msmmngr = new MySqlDbManager(usrRole);
+            return msmmngr.save(usrRole.GetObjectId(), forceUpdate);
+        }
+
+        // DELETE UserRole
+        public String DeleteUserRole(UserRole usrRole)
+        {
+            MySqlDbManager msmmngr = new MySqlDbManager(usrRole);
+            return msmmngr.delete(usrRole.GetObjectId());
+        }
+
         // INIT Process 
         // for inserting roles and actions
         // Create the Objects for Action And Role
@@ -126,7 +156,7 @@ namespace OAuthDb
             IDbDao<RoleAction> roleActionDAO = (RoleActionDAO)new RoleActionDAO()
             .SetActionsForRole(OAuthDbCONST.DB_ROLEACTIONS_ADMIN);
 
-            return roleActionDAO.save(OAuthDbCONST.DB_ROLES[0]);
+            return roleActionDAO.save(OAuthDbCONST.DB_ROLES[0],false);
         }
 
     }

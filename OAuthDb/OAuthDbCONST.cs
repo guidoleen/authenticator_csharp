@@ -66,6 +66,10 @@ namespace OAuthDb
         public static string DBCOLUMN_USR_EMAIL = "usr_email";
         public static string DBCOLUMN_USR_ID = "id";
 
+        // DB Messages
+        public static string DB_MESS_DONESAVE = "Done saving";
+        public static string DB_MESS_DONEMULTIOBJ = "Done saving";
+
         // Xtra functions for Constants
         private static String[] GetCodesFromArray(int iTelColumn, String[] strArr)
         {

@@ -49,7 +49,7 @@ namespace OAuthDb
                 mngrSave.GetConn().Close();
             }
 
-            return "Done join connection \n";
+            return OAuthDbCONST.DB_MESS_DONEMULTIOBJ;
         }
     }
 }

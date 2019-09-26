@@ -48,8 +48,8 @@ CREATE TABLE IF NOT EXISTS `oathdb`.`userrole` (
   `fkusr_id` INT NOT NULL,
   `fkrle_role` VARCHAR(3) NOT NULL,
   INDEX `fk_userrole_user_idx` (`fkusr_id` ASC),
-  INDEX `fk_userrole_role1_idx` (`fkrle_role` ASC),
-  PRIMARY KEY (fkusr_id, fkrle_role),
+  -- INDEX `fk_userrole_role1_idx` (`fkrle_role` ASC),
+  PRIMARY KEY (fkusr_id),
   CONSTRAINT `fk_userrole_user`
     FOREIGN KEY (`fkusr_id`)
     REFERENCES `oathdb`.`user` (`id`)

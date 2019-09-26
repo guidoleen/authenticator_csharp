@@ -4,10 +4,10 @@ namespace OAuthDb
 {
     public interface IDbDao<IObjectBrowser>
     {
-        String delete(String id, String keyId);
+        String delete(String keyId);
 
         String display();
 
-        String save(String keyId);
+        String save(String keyId, Boolean forceUpdate);
     }
 }

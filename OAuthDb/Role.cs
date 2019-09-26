@@ -72,7 +72,7 @@ namespace OAuthDb
 
         public string GetObjectIdName()
         {
-            return OAuthDbCONST.DBCOLUMN_RLE_ROLE";
+            return OAuthDbCONST.DBCOLUMN_RLE_ROLE;
         }
     }
 }

@@ -50,17 +50,17 @@ namespace OAuthDb
             this.comm.CommandType = System.Data.CommandType.Text;
         }
 
-        public string delete(String id, String keyId)
+        public string delete(String keyId)
         {
             this.createConnComm();
-            this.comm.CommandText = "DELETE FROM " + this.createGetTypeFromObjString() + " WHERE " + keyId + "=@param1";
+            this.comm.CommandText = "DELETE FROM " + this.createGetTypeFromObjString() + " WHERE " + this.obj.GetObjectIdName() + "=@param1";
 
-            this.comm.Parameters.Add(new MySqlParameter("@param1", id));
+            this.comm.Parameters.Add(new MySqlParameter("@param1", keyId));
 
             this.comm.ExecuteNonQuery();
             this.conn.Close();
 
-            return String.Format("Done delete {0}", id);
+            return String.Format("Done delete {0}", keyId);
         }
 
         public string display()
@@ -93,11 +93,11 @@ namespace OAuthDb
             return strDisplay;
         }
 
-        public string save(String keyId)
+        public string save(String keyId, Boolean forceUpdate)
         {
             this.createConnComm();
             
-            if (keyId == "")
+            if (keyId == "" || forceUpdate != true)
                 this.comm.CommandText = createInsertString(null);
             else
                 this.comm.CommandText = createUpdateString(keyId);
@@ -115,7 +115,7 @@ namespace OAuthDb
                 this.conn.Close();
             }
 
-            return String.Format("Done saved {0}", keyId);
+            return String.Format(OAuthDbCONST.DB_MESS_DONESAVE + " {0}", keyId);
         }
 
         // Insert into

@@ -14,12 +14,9 @@ namespace OAuthDb
             this.userRoleMngr = new MySqlDbManager(this.userRole);
         }
 
-        public string delete(string id, string keyId)
+        public string delete(string keyId)
         {
-            return this.userRoleMngr.delete(
-                    this.userRole.GetObjectId(),
-                    this.userRole.GetObjectIdName()
-                    );
+            throw new NotImplementedException();
         }
 
         public string display()
@@ -29,9 +26,10 @@ namespace OAuthDb
             return this.userRoleMngr.display();
         }
 
-        public string save(string keyId)
+        public string save(string keyId, Boolean forceUpdate)
         {
-            return this.userRoleMngr.save(keyId);
+            throw new NotImplementedException();
+            // return this.userRoleMngr.save(keyId);
         }
     }
 }

@@ -13,7 +13,8 @@ namespace OAuthDb
             return this;
         }
 
-        public string delete(string id, string keyId)
+        // NOT in USE.....
+        public string delete(string keyId)
         {
             throw new NotImplementedException();
         }
@@ -28,7 +29,7 @@ namespace OAuthDb
             throw new NotImplementedException();
         }
 
-        public string save(string keyId)
+        public string save(string keyId, Boolean forceUpdate)
         {
             if (this.ActionsForRole == null)
                 return "";

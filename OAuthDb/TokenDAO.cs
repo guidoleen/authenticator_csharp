@@ -15,7 +15,7 @@ namespace OAuthDb
 
             IDbDao<IObjectBrowser> tokenDao = new MySqlDbManager(token);
 
-            return tokenDao.save(strKeyId);
+            return tokenDao.save(strKeyId, false);
         }
     }
 }

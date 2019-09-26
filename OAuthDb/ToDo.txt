@@ -1,13 +1,11 @@
 TODO >
 TokenJWT > int GetTimeForJwtTokenFromJan1970() > Hours is plus 2!!
 
-Init App > Roleactions in Db
-
-RoleAction > display function > select from where
-
 UserRoleDAO > in Service bouwen
 
-All Column names in Constant list
+OAUthDBService >> Create Or Update new RoleActions
+
+User can ONLY Have one ROLE >> Primary Key == only usr_id
 
 
 /////
